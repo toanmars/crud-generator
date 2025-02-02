@@ -1,0 +1,34 @@
+package repositories
+
+import (
+    "github.com/toanmars/crud-generator/models"
+    "gorm.io/gorm"
+)
+
+type {{.ModelName}}Repository struct {
+    db *gorm.DB
+}
+
+func New{{.ModelName}}Repository(db *gorm.DB) *{{.ModelName}}Repository {
+    return &{{.ModelName}}Repository{db: db}
+}
+
+func (r *{{.ModelName}}Repository) Create(model *models.{{.ModelName}}) error {
+    return r.db.Create(model).Error
+}
+
+func (r *{{.ModelName}}Repository) FindByID(id uint) (*models.{{.ModelName}}, error) {
+    var model models.{{.ModelName}}
+    if err := r.db.First(&model, id).Error; err != nil {
+        return nil, err
+    }
+    return &model, nil
+}
+
+func (r *{{.ModelName}}Repository) Update(model *models.{{.ModelName}}) error {
+    return r.db.Save(model).Error
+}
+
+func (r *{{.ModelName}}Repository) Delete(id uint) error {
+    return r.db.Delete(&models.{{.ModelName}}{}, id).Error
+}

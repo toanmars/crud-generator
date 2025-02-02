@@ -1,0 +1,20 @@
+package routes
+
+import (
+    "github.com/gin-gonic/gin"
+    "github.com/toanmars/crud-generator/handlers"
+    "github.com/toanmars/crud-generator/services"
+    "github.com/toanmars/crud-generator/repositories"
+    "gorm.io/gorm"
+)
+
+func Setup{{.ModelName}}Routes(r *gin.Engine, db *gorm.DB) {
+    repo := repositories.New{{.ModelName}}Repository(db)
+    service := services.New{{.ModelName}}Service(repo)
+    handler := handlers.New{{.ModelName}}Handler(service)
+
+    r.GET("/{{.ModelNameLower}}/:id", handler.GetByID)
+    r.POST("/{{.ModelNameLower}}", handler.Create)
+    r.PUT("/{{.ModelNameLower}}/:id", handler.Update)
+    r.DELETE("/{{.ModelNameLower}}/:id", handler.Delete)
+}

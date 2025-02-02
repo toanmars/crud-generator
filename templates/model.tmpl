@@ -1,0 +1,7 @@
+package models
+
+type {{.ModelName}} struct {
+    {{- range .Fields}}
+    {{.Name}} {{.Type}} `json:"{{.JsonTag}}"`
+    {{- end}}
+}

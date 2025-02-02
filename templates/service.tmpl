@@ -1,0 +1,30 @@
+package services
+
+import (
+    "github.com/toanmars/crud-generator/models"
+    "github.com/toanmars/crud-generator/repositories"
+)
+
+type {{.ModelName}}Service struct {
+    repo *repositories.{{.ModelName}}Repository
+}
+
+func New{{.ModelName}}Service(repo *repositories.{{.ModelName}}Repository) *{{.ModelName}}Service {
+    return &{{.ModelName}}Service{repo: repo}
+}
+
+func (s *{{.ModelName}}Service) Create(model *models.{{.ModelName}}) error {
+    return s.repo.Create(model)
+}
+
+func (s *{{.ModelName}}Service) GetByID(id uint) (*models.{{.ModelName}}, error) {
+    return s.repo.FindByID(id)
+}
+
+func (s *{{.ModelName}}Service) Update(model *models.{{.ModelName}}) error {
+    return s.repo.Update(model)
+}
+
+func (s *{{.ModelName}}Service) Delete(id uint) error {
+    return s.repo.Delete(id)
+}
